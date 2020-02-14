@@ -21,6 +21,8 @@ col_list = ['unit', 'time', 'os_1', 'os_2', 'os_3', 'sm_1', 'sm_2', 'sm_3', 'sm_
 To make sure of no missing values I have printed the info of the dataframe. 
 2.1.3 Data Visualization: Plotted the data of the 3 operation settings and 21 sensor measurements to check the trends from healthy state to failure state. 
 
+ ![](images/1.png)
+ 
 Found that few of the categories, there is no significant changing trend from healthy to that of failure phase for around seven features, these features are removed from the dataset that are going to be fed into the model. 
 2.1.4 Scaling: The final operation settings and sensor measurements are scaled using minmax scaler from sklearn module. The scaling is necessary for the deep learning model to work. 
 2.2 Input preparation
@@ -30,35 +32,25 @@ Since, there are only 100 engine ids and making a dataset with only 100 data poi
 2.3 Model architecture:
 The model architecture is as follows, mainly containing two GRUs in series and connected to a linear layer. The batch input of dimension 250 x sequence_length x features is fed to a single layer GRU where the features are converted from 18 to 50. A second GRU in series is connected and hidden dimensions are reduced from 50 to 25. Finally a linear/dense layer is connected to output a single dimension vector.  
 
-
+ ![](images/2.png)
 
 The model can be further fine tuned for better performance. Due to the time limitation the model is freezed as per the above parameters.
 2.3.1 Hyperparameters: Various number of parameters were tweaked manually for better performance of the model. Given the time limitation exploring further options could not become possible. Following are the various hyperparameters that are selected after fine tuning. 
 
 2.3.1.1 Selected hyperparameters
-Batch size
-250
-Number of epochs
-100
-GRU hidden dimensions
-50
-GRU2 hidden dimensions
-25
-Loss function
-Mean Squared error
-Optimizer
-RMSprop
-Validation split
-0.33
-Learning rate
-Default in RMSprop
+
+ ![](images/3.png)
 
 2.3.2 Training: Used a one third split of the training data as validation. The data is randomized and sent to the model in batches for training. Used google colab’s GPU capacity for running the model. Following the training curve for the training and validation loss. The training is limited to 100 epochs considering trade off between the time and overfitting. The training and validation loss have followed a decreasing trend which makes clear about the presence of gradient. 
+
+ ![](images/4.png)
 
 2.3.3 Predicting RUL: Once the model is run the weights/parameters that are calculated from the model are saved in the model. These weights are used to predict the remaining useful life from the test data. 
 2.3.3.1 Test data preparation: The test data is prepared to feed into the model for the RUL predictions. For this, the sequences of length selected_sequence (31) from the last cycle of each engine are stacked in reverse direction. The process is repeated for all the engine IDs. The test dataset is in the shape 100 x 31 x 18. For the actual labels, the data provided in the RUL.txt file is considered. 
 2.3.4 Results: The test data is fed to the model and predictions of remaining useful life were made. The mse loss is noted as 1600 and explanation for high value is explained in the conclusion part. A plot was plotted to compare the actual vs the predicted values. 
 
+ ![](images/5.png)
+ 
 2.4 Conclusion
 Following are a few points that are concluded. 
 Further fine-tuning of the hyperparameters and exploring various architectures are necessary for enhancing the performance of the model on test set. 
@@ -68,35 +60,15 @@ Dealing with the noise, taking measures to reduce may also help the models perfo
 The model 2 is similar to that of model 1 except for the fact that the sequence length is limited to 5. For the initial approach, the same architecture tweaked as that of the model 1. Few hyperparameters are tweaked for better performance. Following are the list of parameters used.
 3.1 Model architecture: Played around with few architectures and found the below architecture to be performing little better than others. 
 
-
+ ![](images/6.png)
 
 3.2 Selected hyperparameters: Following are the hyperparameters chosen for the model2. The training is carried out manually by changing various hyperparameters. 
-Batch size
-100
-Number of epochs
-100
-GRU hidden dimensions
-100
-GRU2 hidden dimensions
-50
-GRU3 hidden dimensions
-25
-Dropout in all GRUs
-0.2
-Activation type
-ReLU
-Loss function
-Mean Squared error
-Optimizer
-RMSprop
-Validation split
-0.33
-Learning rate
-Default in RMSprop
 
-
+ ![](images/7.png)
 
 3.3 Predictions: The model yielded a MSE of around 1580 on the test dataset, however this could be further tuned for better results. The actual vs predicted results are as shown.
+
+ ![](images/8.png)
 
 3.4 Conclusion (similar to that of Model 1)
 Following are a few points that are concluded. 
