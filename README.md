@@ -32,14 +32,14 @@ Since, there are only 100 engine ids and making a dataset with only 100 data poi
 2.3 Model architecture:
 The model architecture is as follows, mainly containing two GRUs in series and connected to a linear layer. The batch input of dimension 250 x sequence_length x features is fed to a single layer GRU where the features are converted from 18 to 50. A second GRU in series is connected and hidden dimensions are reduced from 50 to 25. Finally a linear/dense layer is connected to output a single dimension vector.  
 
- ![](images/2.png)
+ ![](images/2.PNG)
 
 The model can be further fine tuned for better performance. Due to the time limitation the model is freezed as per the above parameters.
 2.3.1 Hyperparameters: Various number of parameters were tweaked manually for better performance of the model. Given the time limitation exploring further options could not become possible. Following are the various hyperparameters that are selected after fine tuning. 
 
 2.3.1.1 Selected hyperparameters
 
- ![](images/3.png)
+ ![](images/3.PNG)
 
 2.3.2 Training: Used a one third split of the training data as validation. The data is randomized and sent to the model in batches for training. Used google colab’s GPU capacity for running the model. Following the training curve for the training and validation loss. The training is limited to 100 epochs considering trade off between the time and overfitting. The training and validation loss have followed a decreasing trend which makes clear about the presence of gradient. 
 
@@ -60,11 +60,11 @@ Dealing with the noise, taking measures to reduce may also help the models perfo
 The model 2 is similar to that of model 1 except for the fact that the sequence length is limited to 5. For the initial approach, the same architecture tweaked as that of the model 1. Few hyperparameters are tweaked for better performance. Following are the list of parameters used.
 3.1 Model architecture: Played around with few architectures and found the below architecture to be performing little better than others. 
 
- ![](images/6.png)
+ ![](images/6.PNG)
 
 3.2 Selected hyperparameters: Following are the hyperparameters chosen for the model2. The training is carried out manually by changing various hyperparameters. 
 
- ![](images/7.png)
+ ![](images/7.PNG)
 
 3.3 Predictions: The model yielded a MSE of around 1580 on the test dataset, however this could be further tuned for better results. The actual vs predicted results are as shown.
 
