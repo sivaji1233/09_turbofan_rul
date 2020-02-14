@@ -1,6 +1,6 @@
 # Remaining Useful Life prediction of Turbo fan engine data (C-MAPSS)
 
-##1 Problem statement
+## 1 Problem statement
 
 Two problems are addressed in this report. Following is a brief description of the problems. 
 
